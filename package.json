@@ -1,0 +1,19 @@
+{
+  "name": "todomvc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "backend:dev": "npm --prefix backend run dev",
+    "backend:build": "npm --prefix backend run build",
+    "backend:start": "npm --prefix backend run start",
+    "backend:prisma:generate": "npm --prefix backend run prisma:generate",
+    "backend:prisma:migrate": "npm --prefix backend run prisma:migrate",
+    "backend:prisma:studio": "npm --prefix backend run prisma:studio"
+  },
+  "dependencies": {},
+  "devDependencies": {
+  },
+  "private": true
+}

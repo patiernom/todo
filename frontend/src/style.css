@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap');
+
+/*Navy Blue
+#05445e
+
+Blue Grotto
+#189ab4
+
+Blue Green
+#75e6da
+
+Baby Blue
+#d4f1f4*/
+
+:root {
+    font-family: 'Poppins', system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    color: #05445e;
+    background-color: #d4f1f4;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    font-weight: 500;
+    color: #05445e;
+    text-decoration: inherit;
+    cursor: pointer;
+}
+
+a.selected {
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #189ab4;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 320px;
+    min-height: 100vh;
+
+    font-family: sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 10rem;
+    text-align: center;
+    opacity: 0.4;
+}
+
+form {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    width: 400px;
+}
+
+h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+}
+
+button {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #189ab4;
+    color: #d4f1f4;
+    cursor: pointer;
+    transition: border-color 0.25s;
+}
+
+button:hover {
+    border-color: #189ab4;
+}
+
+button:focus,
+button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+}
+
+.card {
+    padding: 2em;
+}
+
+#app {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+.unicon {width: 2em; height: 2em;}
