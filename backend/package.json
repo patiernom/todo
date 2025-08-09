@@ -15,7 +15,7 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "NODE_OPTIONS='--import=tsx' sh -c 'lab -v $(find test -type f \\( -name \"*.test.ts\" -o -name \"*.spec.ts\" \\))'",
+    "test": "node scripts/run-unit-tests.mjs",
     "test:integration": "node scripts/run-integration-tests.mjs"
   },
   "dependencies": {
