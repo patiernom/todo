@@ -104,7 +104,7 @@ describe('Todos API', () => {
       { name: 'missing title', payload: {} },
     ];
 
-    for (const c of cases) {
+    for await (const c of cases) {
       const res = await server.inject({
         method: 'POST',
         url: '/todos',
@@ -177,34 +177,51 @@ describe('Todos API', () => {
     expect(res.statusCode).to.equal(404);
   });
 
-  // it('rejects invalid PUT payloads: title cannot be empty, null, or missing', async () => {
-  //   // Create first
-  //   const create = await server.inject({
-  //     method: 'POST',
-  //     url: '/todos',
-  //     payload: { title: 'Initial' },
-  //   });
-  //
-  //   const created = create.result as Todo;
-  //
-  //   const cases: Array<{ name: string; payload: unknown }> = [
-  //     { name: 'empty string', payload: { title: '' } },
-  //     { name: 'null title', payload: { title: null as unknown as string } },
-  //     { name: 'missing title', payload: {} },
-  //   ];
-  //
-  //   console.log(`/todos/${created.id}`);
-  //
-  //   for (const c of cases) {
-  //     const res = await server.inject({
-  //       method: 'POST',
-  //       url: `/todos/${created.id}`,
-  //       //@ts-ignore
-  //       payload: c.payload,
-  //     });
-  //     expect(res.statusCode, `case: ${c.name}`).to.equal(400);
-  //   }
-  // });
+  it('rejects invalid PUT payloads: both title and completed are missing', async () => {
+    // Create first
+    const create = await server.inject({
+      method: 'POST',
+      url: '/todos',
+      payload: { title: 'Initial' },
+    });
+
+    const created = create.result as Todo;
+
+    const res = await server.inject({
+      method: 'PUT',
+      url: `/todos/${created.id}`,
+      //@ts-ignore
+      payload: {},
+    });
+
+    expect(res.statusCode).to.equal(400);
+  });
+
+  it('rejects invalid PUT payloads: title cannot be empty, null', async () => {
+    // Create first
+    const create = await server.inject({
+      method: 'POST',
+      url: '/todos',
+      payload: { title: 'Initial' },
+    });
+
+    const created = create.result as Todo;
+
+    const cases: Array<{ name: string; payload: unknown }> = [
+      { name: 'empty string', payload: { title: '' } },
+      { name: 'null title', payload: { title: null as unknown as string } },
+    ];
+
+    for (const c of cases) {
+      const res = await server.inject({
+        method: 'PUT',
+        url: `/todos/${created.id}`,
+        //@ts-ignore
+        payload: c.payload,
+      });
+      expect(res.statusCode, `case: ${c.name}`).to.equal(400);
+    }
+  });
 
   it('modifies a todo (PUT /todos/{id})', async () => {
     // Create first

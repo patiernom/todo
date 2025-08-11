@@ -10,9 +10,15 @@ export const findTodos = async function (prismaClient: PrismaClient) {
 //   return prismaClient.todo.findUnique({ where: { id: todoId } });
 // };
 //
-// export const deleteTodo = async function (prismaClient: PrismaClient, todoId: number) {
-//   return prismaClient.todo.delete({ where: { id: todoId } });
-// };
+export const deleteTodoById = async function ({
+  prismaClient,
+  todoId,
+}: {
+  prismaClient: PrismaClient;
+  todoId: number;
+}) {
+  return prismaClient.todo.delete({ where: { id: todoId } });
+};
 //
 // export const updateTodo = async function ({
 //   prismaClient,

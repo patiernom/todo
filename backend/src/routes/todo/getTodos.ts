@@ -1,15 +1,14 @@
 import { Request, ResponseToolkit, ServerRoute } from '@hapi/hapi';
+import { getTodos } from '@/controllers/todo';
 
 const getTodosRoute: ServerRoute = {
   path: '/todos',
   method: 'GET',
   handler: async (request: Request, h: ResponseToolkit) => {
     try {
-      const { prisma } = request.server.app;
+      const { app } = request.server;
 
-      const todos = await prisma.todo.findMany({
-        orderBy: { createdAt: 'desc' },
-      });
+      const todos = await getTodos(app);
 
       return h.response({ todos }).type('application/json').code(200);
     } catch (err) {
