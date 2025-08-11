@@ -1,7 +1,8 @@
-import { findTodos, deleteTodoById, createTodo, updateTodo } from '@/services/todos';
 import { ServerApplicationState } from '@hapi/hapi';
-import { TodoCreatePayload, TodoUpdatePayload } from '@/schemas/todos';
+
 import { Todo } from '@prisma/client';
+import { findTodos, deleteTodoById, createTodo, updateTodo } from '@/services/todos';
+import { TodoCreatePayload, TodoUpdatePayload } from '@/schemas/todos';
 
 export const deleteTodo = async ({
   app,

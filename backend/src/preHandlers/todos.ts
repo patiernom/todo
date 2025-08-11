@@ -1,5 +1,6 @@
 import { Request } from '@hapi/hapi';
 import { notFound } from '@hapi/boom';
+
 import { Todo } from '@prisma/client';
 import { findTodoById } from '@/services/todos';
 

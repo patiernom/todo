@@ -1,4 +1,5 @@
 import { Request, ResponseToolkit, ServerRoute } from '@hapi/hapi';
+
 import { getTodos } from '@/controllers/todo';
 
 const getTodosRoute: ServerRoute = {
