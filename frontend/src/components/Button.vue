@@ -17,10 +17,6 @@
 </template>
 
 <script lang="ts" setup>
-import "../stories/button.css";
-
-defineSlots();
-
 withDefaults(
   defineProps<{
     /**
@@ -57,6 +53,7 @@ withDefaults(
   cursor: pointer;
   transition: all 0.25s;
 }
+
 .primary {
   background-color: #05445e;
   color: #d4f1f4;
@@ -64,6 +61,18 @@ withDefaults(
 
 .secondary {
   background-color: #189ab4;
+  color: #d4f1f4;
+}
+
+button:hover {
+  background-color: #189ab4;
+  border-color: #189ab4;
+  color: #d4f1f4;
+}
+
+button.secondary:hover {
+  background-color: #05445e;
+  border-color: #05445e;
   color: #d4f1f4;
 }
 

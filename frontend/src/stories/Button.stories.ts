@@ -22,6 +22,7 @@ const meta = {
   },
   args: {
     // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
+    //@ts-ignore
     onClick: fn(),
   },
 } satisfies Meta<typeof Button>;
@@ -29,7 +30,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 /*
- *👇 Render functions are a framework specific feature to allow you control on how the component renders.
+ *👇 Render functions are a framework-specific feature to allow you to control how the component renders.
  * See https://storybook.js.org/docs/api/csf
  * to learn how to use render functions.
  */

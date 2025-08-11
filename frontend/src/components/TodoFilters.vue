@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRoute, RouterLink } from "vue-router";
 import useTodos from "@/store/useTodos.ts";
+import Button from "@/components/Button.vue";
 
 const route = useRoute();
 
@@ -34,13 +35,13 @@ const { remaining, todos } = useTodos();
       </li>
     </ul>
     <div>
-      <button
-        class="clear-completed"
+      <Button
+        variant="secondary"
         v-show="todos.some((todo) => todo.completed)"
         @click="$emit('delete-completed')"
       >
         Clear Completed
-      </button>
+      </Button>
     </div>
   </div>
 </template>
