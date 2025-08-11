@@ -1,4 +1,14 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { defineEmits } from "vue";
+
+const emits = defineEmits(["add-todo"]);
+
+const addTodo = (title: string) => {
+  if (title.trim().length > 0) {
+    emits("add-todo", title.trim());
+  }
+};
+</script>
 
 <template>
   <div :class="$style.AddTodoInput">
@@ -9,7 +19,7 @@
       placeholder="What needs to be done?"
       @keyup.enter="
         // @ts-ignore
-        $emit('add-todo', $event.target.value);
+        addTodo($event.target.value);
         // @ts-ignore
         $event.target.value = '';
       "

@@ -1,5 +1,10 @@
 import { findTodos } from '@/services/todos';
+import { ServerApplicationState } from '@hapi/hapi';
 
-export const getTodos = async (prismaClient: primsmaClient) => findTodos(prismaClient);
+export const getTodos = async (app: ServerApplicationState) => {
+  const { prisma } = app;
 
-export const postTodos = async (prismaClient: primsmaClient) => findTodos(prismaClient);
+  return findTodos(prisma);
+};
+
+//export const postTodos = async (prismaClient) => findTodos(prismaClient);

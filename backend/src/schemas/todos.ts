@@ -1,5 +1,6 @@
 import Joi from 'joi';
 
+export type TodoCreatePayload = { title: string; completed?: boolean };
 export type TodoUpdatePayload = { title?: string; completed?: boolean };
 
 export const getTodoByIdSchema = Joi.object({

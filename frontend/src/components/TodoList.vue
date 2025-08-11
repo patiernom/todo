@@ -13,10 +13,12 @@ const {
   filters,
   addTodo,
   toggleAllModel,
-  deleteTodo,
+  removeTodo,
   deleteCompleted,
   editTodo,
   toggleTodo,
+  loaded,
+  remaining,
 } = useTodos();
 
 const currentFilterFromRouteName = computed(() => {
@@ -36,7 +38,7 @@ const filteredTodos = computed(() =>
   <div>
     <RouterLink to="/"><h1>My Todo-s</h1></RouterLink>
     <AddTodoInput @add-todo="addTodo" />
-    <main v-show="todos.length > 0" :class="$style.container">
+    <main v-show="loaded && todos.length > 0" :class="$style.container">
       <label :class="$style.check" for="toggle-all-input">
         <unicon name="check-circle" fill="#05445e" v-if="toggleAllModel" />
         <unicon name="circle" fill="#05445e" v-else />
@@ -52,15 +54,19 @@ const filteredTodos = computed(() =>
       <ul :class="$style.todos">
         <TodoItem
           v-for="(todo, index) in filteredTodos"
-          :key="todo.id"
+          :key="todo.id.toString()"
           :todo="todo"
           :index="index"
-          @delete-todo="deleteTodo"
+          @delete-todo="removeTodo"
           @edit-todo="editTodo"
           @toggle-todo="toggleTodo"
         />
       </ul>
-      <TodoFilters :todos="todos" @delete-completed="deleteCompleted" />
+      <TodoFilters
+        :todos="todos"
+        :remaining="remaining"
+        @delete-completed="deleteCompleted"
+      />
     </main>
   </div>
 </template>

@@ -1,5 +1,5 @@
 import { Request, ResponseToolkit, ServerRoute } from '@hapi/hapi';
-import { createTodoPayloadSchema } from '@/schemas/todos';
+import { createTodoPayloadSchema, TodoCreatePayload } from '@/schemas/todos';
 import { validationFailAction } from '@/utils/error';
 
 const getTodosRoute: ServerRoute = {
@@ -17,20 +17,18 @@ const getTodosRoute: ServerRoute = {
         server: {
           app: { prisma },
         },
+        payload,
       } = request;
 
-      const payload = request.payload as { title?: string; completed?: boolean } | null;
-      const title = payload?.title?.toString().trim();
-
-      if (!title) {
-        return h.response({ error: 'Title is required' }).code(400);
-      }
+      // the payload is already validated by Joi and contains only allowed fields
+      const data = payload as TodoCreatePayload;
+      //const title = payload.title.toString().trim();
 
       const created = await prisma.todo.create({
-        data: {
+        data /*: {
           title,
           completed: Boolean(payload?.completed ?? false),
-        },
+        },*/,
       });
 
       return h.response(created).code(201);
