@@ -12,18 +12,18 @@ const deleteTodosRoute: ServerRoute = {
       params: getTodoByIdSchema,
       failAction: validationFailAction,
     },
-    pre: [{ method: findTodo }],
+    pre: [{ method: findTodo, assign: 'existingTodo' }],
   },
   handler: async (request: Request, h: ResponseToolkit) => {
     try {
       const {
         server: { app },
-        params: { id: todoId },
+        pre: { existingTodo },
       } = request;
 
       await deleteTodo({
         app,
-        todoId,
+        existingTodo,
       });
 
       return h.response().code(204);

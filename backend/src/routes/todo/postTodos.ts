@@ -1,6 +1,7 @@
 import { Request, ResponseToolkit, ServerRoute } from '@hapi/hapi';
 import { createTodoPayloadSchema, TodoCreatePayload } from '@/schemas/todos';
 import { validationFailAction } from '@/utils/error';
+import { postTodos } from '@/controllers/todo';
 
 const getTodosRoute: ServerRoute = {
   method: 'POST',
@@ -14,22 +15,14 @@ const getTodosRoute: ServerRoute = {
   handler: async (request: Request, h: ResponseToolkit) => {
     try {
       const {
-        server: {
-          app: { prisma },
-        },
+        server: { app },
         payload,
       } = request;
 
       // the payload is already validated by Joi and contains only allowed fields
       const data = payload as TodoCreatePayload;
-      //const title = payload.title.toString().trim();
 
-      const created = await prisma.todo.create({
-        data /*: {
-          title,
-          completed: Boolean(payload?.completed ?? false),
-        },*/,
-      });
+      const created = await postTodos({ app, data });
 
       return h.response(created).code(201);
     } catch (err) {

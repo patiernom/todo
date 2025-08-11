@@ -2,6 +2,7 @@ import { Request, ResponseToolkit, ServerRoute } from '@hapi/hapi';
 import { getTodoByIdSchema, TodoUpdatePayload, updateTodoPayloadSchema } from '@/schemas/todos';
 import { validationFailAction } from '@/utils/error';
 import { findTodo } from '@/preHandlers/todos';
+import { putTodos } from '@/controllers/todo';
 
 const putTodosRoute: ServerRoute = {
   method: 'PUT',
@@ -17,9 +18,7 @@ const putTodosRoute: ServerRoute = {
   handler: async (request: Request, h: ResponseToolkit) => {
     try {
       const {
-        server: {
-          app: { prisma },
-        },
+        server: { app },
         pre: { existingTodo },
         payload,
       } = request;
@@ -27,10 +26,7 @@ const putTodosRoute: ServerRoute = {
       // the payload is already validated by Joi and contains only allowed fields
       const data = payload as TodoUpdatePayload;
 
-      const updated = await prisma.todo.update({
-        where: { id: existingTodo.id },
-        data,
-      });
+      const updated = await putTodos({ app, data, existingTodo });
 
       return h.response(updated).code(200);
     } catch (err) {
