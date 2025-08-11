@@ -29,13 +29,15 @@ export const deleteTodoById = async function ({
   return prismaClient.todo.delete({ where: { id: todoId } });
 };
 
-//
-// export const findTodoById = async function (prismaClient: PrismaClient, todoId: number) {
-//   return prismaClient.todo.findUnique({ where: { id: todoId } });
-// };
-//
-
-
+export const findTodoById = async function ({
+  prismaClient,
+  todoId,
+}: {
+  prismaClient: PrismaClient;
+  todoId: number;
+}) {
+  return prismaClient.todo.findUnique({ where: { id: todoId } });
+};
 
 export const updateTodo = async function ({
   prismaClient,
