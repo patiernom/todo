@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import { useRoute, RouterLink } from "vue-router";
-import type { Todo } from "@/store/useTodos.ts";
-
-defineProps({
-  todos: { type: Array<Todo>, required: true },
-  remaining: Number,
-});
+import useTodos from "@/store/useTodos.ts";
 
 const route = useRoute();
+
+const { remaining, todos } = useTodos();
 </script>
 
 <template>
