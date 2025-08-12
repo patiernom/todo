@@ -14,7 +14,10 @@ const meta = {
   component: TodoItem,
   tags: ["autodocs"],
   decorators: [
-    () => ({ template: '<div style="margin: 2rem;"><story/></div>' }),
+    () => ({
+      template:
+        '<div style="margin: 1rem;padding:2rem;background: white;width: 20rem;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;border-radius: 0.375rem;"><story/></div>',
+    }),
   ],
   argTypes: {
     // Show emitted events in the Actions panel

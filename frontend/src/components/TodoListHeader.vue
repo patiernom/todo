@@ -1,13 +1,11 @@
+<script setup lang="ts"></script>
+
 <template>
   <RouterLink to="/" :class="$style.headerTitle">
     <h1>My Todo-s</h1>
   </RouterLink>
 </template>
-<script>
-export default {
-  name: "TodoListHeader",
-};
-</script>
+
 <style module>
 .headerTitle {
   font-weight: 500;

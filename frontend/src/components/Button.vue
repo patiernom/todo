@@ -43,12 +43,12 @@ withDefaults(
 <style module>
 .button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid #05445e;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: Poppins, sans-serif;
-  background-color: #d4f1f4;
+  background-color: #ffffff;
   color: #05445e;
   cursor: pointer;
   transition: all 0.25s;

@@ -14,4 +14,7 @@ import App from "./App.vue";
 
 Unicon.add([uniTimes, uniCheck, uniTrashAlt, uniCircle, uniCheckCircle]);
 
-createApp(App).use(router).use(Unicon, { height: 32, width: 32 }).mount("#app");
+createApp(App)
+  .use(router)
+  .use(Unicon as any, { height: 32, width: 32 })
+  .mount("#app");
