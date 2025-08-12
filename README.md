@@ -41,7 +41,7 @@ On the frontend, Vue 3 and Vite focus on speed and maintainability.
 Composition API encourages encapsulated logic in composables and components, leading to better reuse and clearer boundaries between behavior and presentation.
 Vite’s near‑instant HMR keeps the feedback loop tight. There is a learning curve to Composition API, but the payoff is a codebase that’s easier to test, evolve, and reason about.
 
-Storybook supports a component‑driven workflow by turning UI states into living, versioned documentation.
+[Storybook](https://storybook.js.org/) supports a component‑driven workflow by turning UI states into living, versioned documentation.
 Stories capture happy paths, edge cases, and error states; controls and interactions make them executable specs that don’t require a full app environment.
 Maintaining stories adds some upfront effort, but the result is durable UI knowledge, smoother onboarding, and safer UI changes through visual and interaction regression checks.
 
