@@ -26,6 +26,7 @@ async function addTodo(title: String) {
   try {
     const newTodo = await createTodo(title);
 
+    // This uses Optimistic update, but I always prefer to rely on the server, for example, here this introduces a little bug on the ordering of the todos list
     todos.value.push(newTodo);
   } catch (e) {
     error.value = getErrorMessage(e);
@@ -90,7 +91,7 @@ async function deleteCompleted() {
       await removeTodo(todo);
     }
 
-    todos.value = todos.value.filter((todo) => !todo.completed);
+    await loadData();
   } catch (e) {
     error.value = getErrorMessage(e);
   }

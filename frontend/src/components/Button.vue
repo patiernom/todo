@@ -7,7 +7,6 @@
       [$style.secondary]: variant === 'secondary',
       [$style[size]]: true,
     }"
-    @click="$emit('click')"
   >
     <template v-if="!$slots.default">
       {{ label }}

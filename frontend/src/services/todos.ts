@@ -1,8 +1,11 @@
 import axios from "axios";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const TODOS_ENDPOINT = `${API_BASE_URL}/todos`;
+
 export const getTodos = async () => {
   try {
-    const { data } = await axios.get("http://localhost:3000/todos");
+    const { data } = await axios.get(`${TODOS_ENDPOINT}`);
 
     return data.todos;
   } catch (err) {
@@ -13,7 +16,7 @@ export const getTodos = async () => {
 
 export const createTodo = async (title: String) => {
   try {
-    const { data } = await axios.post("http://localhost:3000/todos", { title });
+    const { data } = await axios.post(`${TODOS_ENDPOINT}`, { title });
 
     return data;
   } catch (err) {
@@ -24,7 +27,7 @@ export const createTodo = async (title: String) => {
 
 export const deleteTodo = async (id: Number) => {
   try {
-    await axios.delete(`http://localhost:3000/todos/${id}`);
+    await axios.delete(`${TODOS_ENDPOINT}/${id}`);
   } catch (err) {
     console.error(err);
     throw new Error(`Failed to delete todo: ${err}`);
@@ -41,7 +44,7 @@ export const updateTodo = async ({
   completed?: Boolean;
 }) => {
   try {
-    const { data } = await axios.put(`http://localhost:3000/todos/${id}`, {
+    const { data } = await axios.put(`${TODOS_ENDPOINT}/${id}`, {
       completed,
       title,
     });
