@@ -141,7 +141,7 @@ Option B — Fully containerized (optional):
 - The frontend reads configuration via Vite-style variables (VITE_*).
 - See the respective package READMEs for the exact variables, examples, and recommended .env files:
   - [backend/README.md](./backend/README.md)
-  - frontend/README.md
+  - [frontend/README.md](./frontend/README.md)
 
 -------------------------------------------------------------------------------
 
