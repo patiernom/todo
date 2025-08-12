@@ -23,73 +23,101 @@ async function addTodo(title: String) {
     return;
   }
 
-  const newTodo = await createTodo(title);
+  try {
+    const newTodo = await createTodo(title);
 
-  todos.value.push(newTodo);
+    todos.value.push(newTodo);
+  } catch (e) {
+    error.value = getErrorMessage(e);
+  }
 }
 
 async function removeTodo(todo: Todo) {
-  await deleteTodo(todo.id);
+  try {
+    await deleteTodo(todo.id);
 
-  todos.value = todos.value.filter((t) => t.id !== todo.id);
+    todos.value = todos.value.filter((t) => t.id !== todo.id);
+  } catch (e) {
+    error.value = getErrorMessage(e);
+  }
 }
 
 async function toggleTodo(todo: Todo, value: Boolean) {
-  await updateTodo({ id: todo.id, completed: value });
+  try {
+    await updateTodo({ id: todo.id, completed: value });
 
-  // todos.value = todos.value.map((t) => {
-  //   if (t.id === todo.id) {
-  //     return {
-  //       ...t,
-  //       completed: value,
-  //     };
-  //   }
-  //
-  //   return t;
-  // });
-  // here no Optimistic update just rely on the server
-  await loadData();
+    // todos.value = todos.value.map((t) => {
+    //   if (t.id === todo.id) {
+    //     return {
+    //       ...t,
+    //       completed: value,
+    //     };
+    //   }
+    //
+    //   return t;
+    // });
+    // here no Optimistic update just rely on the server
+    await loadData();
+  } catch (e) {
+    error.value = getErrorMessage(e);
+  }
 }
 
 async function editTodo(todo: Todo, value: String) {
-  await updateTodo({ id: todo.id, title: value });
+  try {
+    await updateTodo({ id: todo.id, title: value });
 
-  // todos.value = todos.value.map((t) => {
-  //   if (t.id === todo.id) {
-  //     return {
-  //       ...t,
-  //       title: value,
-  //     };
-  //   }
-  //
-  //   return t;
-  // });
-  // here no Optimistic update just rely on the server
-  await loadData();
+    // todos.value = todos.value.map((t) => {
+    //   if (t.id === todo.id) {
+    //     return {
+    //       ...t,
+    //       title: value,
+    //     };
+    //   }
+    //
+    //   return t;
+    // });
+    // here no Optimistic update just rely on the server
+    await loadData();
+  } catch (e) {
+    error.value = getErrorMessage(e);
+  }
 }
 
 async function deleteCompleted() {
-  for await (const todo of todos.value.filter((todo) => todo.completed)) {
-    await removeTodo(todo);
-  }
+  try {
+    for await (const todo of todos.value.filter((todo) => todo.completed)) {
+      await removeTodo(todo);
+    }
 
-  todos.value = todos.value.filter((todo) => !todo.completed);
+    todos.value = todos.value.filter((todo) => !todo.completed);
+  } catch (e) {
+    error.value = getErrorMessage(e);
+  }
 }
 
 async function toggleAll(value: Boolean) {
-  for await (const todo of todos.value) {
-    await updateTodo({ id: todo.id, completed: value });
-  }
+  try {
+    for await (const todo of todos.value) {
+      await updateTodo({ id: todo.id, completed: value });
+    }
 
-  // todos.value.forEach((todo) => {
-  //   todo.completed = value;
-  // });
-  // here no Optimistic update just rely on the server
-  await loadData();
+    // todos.value.forEach((todo) => {
+    //   todo.completed = value;
+    // });
+    // here no Optimistic update just rely on the server
+    await loadData();
+  } catch (e) {
+    error.value = getErrorMessage(e);
+  }
 }
 
 async function loadData() {
-  todos.value = await getTodos();
+  try {
+    todos.value = await getTodos();
+  } catch (e) {
+    error.value = getErrorMessage(e);
+  }
 }
 
 export default () => {

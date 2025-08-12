@@ -93,6 +93,10 @@ function updateTodo() {
   gap: 1rem;
 }
 
+.todo label {
+  cursor: pointer;
+}
+
 .todo label,
 .todo a {
   display: flex;

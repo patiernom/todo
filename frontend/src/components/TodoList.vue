@@ -102,6 +102,7 @@ const filteredTodos = computed(() =>
   border-bottom: 1px solid #d4f1f4;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
+  cursor: pointer;
 }
 
 .check span {

@@ -12,9 +12,15 @@ import router from "../src/stories/mocks/router";
 import "../src/style.css";
 
 // Register icons and plugins globally for all stories
-Unicon.add([uniTimes, uniCheck, uniTrashAlt, uniCircle, uniCheckCircle]);
+(Unicon as any).add([
+  uniTimes,
+  uniCheck,
+  uniTrashAlt,
+  uniCircle,
+  uniCheckCircle,
+]);
 setup((app) => {
-  app.use(Unicon, { height: 32, width: 32 });
+  app.use(Unicon as any, { height: 32, width: 32 });
   app.use(router);
 });
 
