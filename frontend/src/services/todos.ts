@@ -7,6 +7,7 @@ export const getTodos = async () => {
     return data.todos;
   } catch (err) {
     console.error(err);
+    throw new Error(`Failed to fetch todos: ${err}`);
   }
 };
 
@@ -17,6 +18,7 @@ export const createTodo = async (title: String) => {
     return data;
   } catch (err) {
     console.error(err);
+    throw new Error(`Failed to create todo: ${err}`);
   }
 };
 
@@ -25,6 +27,7 @@ export const deleteTodo = async (id: Number) => {
     await axios.delete(`http://localhost:3000/todos/${id}`);
   } catch (err) {
     console.error(err);
+    throw new Error(`Failed to delete todo: ${err}`);
   }
 };
 
@@ -46,5 +49,6 @@ export const updateTodo = async ({
     return data;
   } catch (err) {
     console.error(err);
+    throw new Error(`Failed to update todo: ${err}`);
   }
 };

@@ -56,6 +56,7 @@ const { remaining, todos } = useTodos();
   border-top: 1px solid #d4f1f4;
   margin-top: 1rem;
   padding-top: 0.5rem;
+  gap: 2rem;
 }
 
 .filters {

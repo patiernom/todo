@@ -1,13 +1,14 @@
 # Full-Stack Todo App
 
-A minimal, interview-oriented full-stack project showcasing a typed backend API and a modern frontend UI. This repository is split into two main packages:
+A minimal, full-stack project showcasing a typed backend API and a modern frontend UI. 
+This repository is split into two main packages:
 
 - backend — API built with a Node.js framework and Prisma ORM targeting PostgreSQL.
 - frontend — SPA built with Vue 3, TypeScript, and Vite, with Storybook for component development.
 
 For detailed, technology-specific instructions, see:
-- Backend README: backend/README.md
-- Frontend README: frontend/README.md
+- Backend README: [backend/README.md](./backend/README.md)
+- Frontend README: [frontend/README.md](./frontend/README.md)
 
 Goals:
 - Demonstrate clean architecture, type safety, and fast developer feedback loops.

@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { RouterLink, useRoute } from "vue-router";
+import { useRoute } from "vue-router";
 import AddTodoInput from "@/components/AddTodoInput.vue";
 import TodoItem from "@/components/TodoItem.vue";
 import TodoFilters from "@/components/TodoFilters.vue";
 import useTodos from "@/store/useTodos.ts";
+import TodoListHeader from "@/components/TodoListHeader.vue";
 
 const route = useRoute();
 
@@ -34,7 +35,7 @@ const filteredTodos = computed(() =>
 
 <template>
   <div>
-    <RouterLink to="/"><h1>My Todo-s</h1></RouterLink>
+    <TodoListHeader />
     <AddTodoInput @add-todo="addTodo" />
     <main v-show="todos.length > 0" :class="$style.container">
       <label :class="$style.check" for="toggle-all-input">
