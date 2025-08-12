@@ -10,10 +10,51 @@ For detailed, technology-specific instructions, see:
 - Backend README: [backend/README.md](./backend/README.md)
 - Frontend README: [frontend/README.md](./frontend/README.md)
 
-Goals:
-- Demonstrate clean architecture, type safety, and fast developer feedback loops.
-- Showcase API design and data modeling with a relational database.
-- Exhibit component-driven development (CDD) and UI documentation via Storybook.
+-------------------------------------------------------------------------------
+
+## Overview
+This project is a deliberately minimal full‑stack application designed to demonstrate clean architecture, end‑to‑end type safety, and fast feedback loops. It favors clarity over complexity, showing how a small, well‑structured codebase can scale in maintainability and confidence without heavy ceremony.
+
+Goals
+- Clean architecture and separation of concerns: keep domain logic pure and testable; push I/O (DB, network, framework specifics) to the edges behind clear interfaces.
+- Type safety: leverage static typing across backend and frontend to reduce runtime surprises and make refactors safer.
+- Fast developer feedback: optimize for quick iterations via hot reload, minimal scaffolding, and tooling that shortens the edit–run–verify loop.
+- Clear API and data modeling: use a relational database with explicit schemas and migrations to make state changes auditable and reproducible.
+- Component‑driven development (CDD): build the UI as a system of isolated components with living documentation and visual test cases.
+
+Rationale and trade‑offs
+- Backend framework + Prisma
+  - Why: A mature Node.js web framework provides routing, validation, and middleware ergonomics while staying unopinionated about domain code. Prisma offers a declarative schema, safe migrations, and an auto‑generated client that aligns closely with TypeScript, improving correctness and developer velocity.
+  - Trade‑offs: You adopt the framework’s conventions and Prisma’s query model. In return you gain consistent DX, safer schema evolution, and a single source of truth for data models.
+- PostgreSQL and isolated testing with schemas
+  - Why: PostgreSQL is a reliable, standards‑compliant relational database with strong tooling. Using per‑test schemas (or namespaced databases) enables isolated integration tests without cross‑test contamination. Migrations run before tests so the schema under test matches production.
+  - Trade‑offs: Tests that touch the DB are slower than pure unit tests, but they provide higher confidence in persistence logic and query shape. Schema‑level isolation strikes a good balance between speed and realism.
+- Vue 3 + Vite for fast feedback and TypeScript‑first DX
+  - Why: Vue’s Composition API encourages encapsulated, testable logic in composables and components. Vite gives near‑instant HMR and modern bundling, which shortens the feedback loop. Strong TypeScript support reduces UI runtime errors and improves refactorability.
+  - Trade‑offs: Composition API comes with a learning curve. The payoff is improved code reuse and clearer boundaries between UI behavior and presentation.
+- Storybook for CDD/BDD‑style UI design and documentation
+  - Why: Stories capture component states (happy path, edge cases, error states) as living, versioned documentation. Controls and interaction tests turn stories into executable specs, encouraging a Given/When/Then mindset without requiring a full app environment.
+  - Trade‑offs: Maintaining stories adds some upfront cost. The benefit is durable UI documentation, easier onboarding, and safer UI changes through visual and interaction regression checks.
+- Testing pyramid for speed, confidence, and realism
+  - Unit tests: fastest feedback on pure logic (formatters, validators, composables). Cheap to write and run; they catch most regressions early.
+  - Integration tests: exercise API routes/handlers with a real database schema and migrations. Slightly slower but validate boundaries (ORM, validation, transactions).
+  - Request injection / E2E‑like tests: simulate HTTP requests against the in‑process server for end‑to‑end behavior without network flakiness. Use sparingly for critical flows.
+  - UI tests: components are validated in isolation through stories and lightweight interaction tests. Full‑browser E2E can be layered in for high‑value journeys.
+
+How these choices serve the goals
+- Clean architecture: Domain code is framework‑agnostic; adapters handle transport (HTTP) and persistence (DB). This separation enables targeted tests and easier refactors.
+- Type safety: Strong typing in models, handlers, and components reduces coupling errors and makes changes (like adding fields) safer across the stack.
+- Fast feedback: Vite HMR, Storybook for components, and quick unit/integration test runs keep iteration cycles short.
+- Clear modeling: Prisma schema and migrations make data changes explicit and traceable, while DB‑backed integration tests prevent “works on my machine” drift.
+- CDD and documentation: Storybook centralizes UI knowledge—teams can reason about states visually, and CI can validate them without spinning up the whole app.
+
+When to extend
+- Observability: add structured logging and tracing around key flows.
+- Performance: introduce caching layers (in‑memory or external) once bottlenecks are observed.
+- Scale: modularize services when team/code size grows, preserving the same boundaries between domain and I/O.
+- Security: layer in authentication/authorization at route boundaries and consider secrets management and rotation.
+
+This stack is intentionally small but capable. It emphasizes velocity with guardrails—type safety, clear boundaries, and executable documentation—so additions remain predictable and maintainable as the project evolves.
 
 -------------------------------------------------------------------------------
 
@@ -104,14 +145,6 @@ Contribution and iteration:
 
 -------------------------------------------------------------------------------
 
-Notes for the interview write-up:
-- After scaffolding, you can add a section describing the rationale behind the chosen technologies and trade-offs:
-  - Why this Node.js framework and Prisma for data access and migrations.
-  - Why PostgreSQL and how schemas enable isolated testing.
-  - Why Vue 3 + Vite for fast dev feedback and TypeScript-first DX.
-  - Why Storybook for CDD/BDD-style UI design and documentation.
-  - How the testing pyramid balances speed (unit), confidence (integration), and realism (injection/E2E).
-
 For concrete commands, ports, and environment variables, refer to:
-- backend/README.md
-- frontend/README.md
+- Backend README: [backend/README.md](./backend/README.md)
+- Frontend README: [frontend/README.md](./frontend/README.md)
