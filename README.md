@@ -3,7 +3,7 @@
 A minimal, full-stack project showcasing a typed backend API and a modern frontend UI. 
 This repository is split into two main packages:
 
-- backend — API built with a Node.js framework and Prisma ORM targeting PostgreSQL.
+- backend — API built with Hapi and Prisma ORM targeting PostgreSQL.
 - frontend — SPA built with Vue 3, TypeScript, and Vite, with Storybook for component development.
 
 For detailed, technology-specific instructions, see:
@@ -13,7 +13,8 @@ For detailed, technology-specific instructions, see:
 -------------------------------------------------------------------------------
 
 ## Overview
-This project is a deliberately minimal full‑stack application designed to demonstrate clean architecture, end‑to‑end type safety, and fast feedback loops. It favors clarity over complexity, showing how a small, well‑structured codebase can scale in maintainability and confidence without heavy ceremony.
+This project is a deliberately minimal full‑stack application designed to demonstrate clean architecture, end‑to‑end type safety, and fast feedback loops. 
+It favors clarity over complexity, showing how a small, well‑structured codebase can scale in maintainability and confidence without heavy ceremony.
 
 ### Goals
 - Clean architecture and separation of concerns: keep domain logic pure and testable; push I/O (DB, network, framework specifics) to the edges behind clear interfaces.
@@ -23,10 +24,18 @@ This project is a deliberately minimal full‑stack application designed to demo
 - Component‑driven development (CDD): build the UI as a system of isolated components with living documentation and visual test cases.
 
 ### Architecture and Tooling Rationale
-The backend pairs a mature Node.js web framework with Prisma to create a predictable, type‑safe foundation.
-The framework handles routing, validation, and middleware ergonomics while staying out of the domain’s way. Prisma contributes a declarative schema, safe migrations, and an auto‑generated client that fits naturally with TypeScript. The trade‑off is adopting the framework’s conventions and Prisma’s query model, which is repaid through consistent DX, safer schema evolution, and a single source of truth for data models.
+The backend pairs a mature Node.js web framework with an ORM to create a predictable, type‑safe foundation.
+
+[Hapi](https://hapi.dev/), a robust, modular framework, handles routing, validation, and middleware ergonomics while staying out of the domain’s way. 
+It features a first‑class plugin system (server.register) so capabilities can be added or removed as small, isolated modules; route‑level pre-handlers (pre) let you compose reusable guards, lookups, and validation before a handler runs; and authentication/authorization are configured via strategies and schemes, making it straightforward to drop in JWT, session, or OAuth support through a tiny plugin that registers the strategy and optional route decorators.
+
+[Prisma](https://www.prisma.io/) contributes a declarative schema, safe migrations, and an auto‑generated client that fits naturally with TypeScript. 
+The trade‑off is adopting the framework’s conventions and Prisma’s query model, which is repaid through consistent DX, safer schema evolution, and a single source of truth for data models.
 
 Data is persisted in PostgreSQL to benefit from standards compliance, reliability, and excellent tooling. For tests, isolated schemas (or namespaced databases) allow integration runs that don’t bleed state across cases. Migrations execute before tests so what’s exercised reflects production reality. Although database tests are slower than pure unit tests, the additional confidence in query shape and persistence logic justifies the cost.
+For a simple project this database is overkill, but this stack is designed to scale to larger projects.
+However, it is possible to use a different database backend for Prisma, such as SQLite, or choose a non-relational database like MongoDB, or use another ORM.
+For local development or prototyping, it would also be possible to use a JSON file database with solutions like [lowdb](https://github.com/typicode/lowdb).
 
 On the frontend, Vue 3 and Vite focus on speed and maintainability.
 Composition API encourages encapsulated logic in composables and components, leading to better reuse and clearer boundaries between behavior and presentation.
@@ -60,7 +69,7 @@ In the UI, components are validated in isolation via stories and lightweight int
     - Run Storybook locally during development; export a static build for review or CI previews.
     - Use stories to validate states, edge cases, and accessibility.
 - UI testing approaches
-    - Component tests using the same stories for deterministic rendering and interactions.
+    - Component tests use the same stories for deterministic rendering and interactions.
     - Optional end-to-end UI tests can target the running app in a real browser (e.g., using a browser automation tool) if desired.
 - How to run
     - See [frontend/README.md](./frontend/README.md) for Storybook and app testing commands, environment notes, and best practices.
@@ -145,7 +154,7 @@ Option B — Fully containerized (optional):
 
 -------------------------------------------------------------------------------
 
-### Contribution and iteration
+### Contributing
 - Keep business logic pure and testable; keep I/O (DB, HTTP) at the edges.
 - Add a story when building or modifying a component (CDD workflow).
 - Prefer small, self-contained changes with tests and stories included.
